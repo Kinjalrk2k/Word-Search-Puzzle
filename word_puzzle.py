@@ -54,6 +54,16 @@ def read_excel():
 
     return (arr2d, arr1d)   #   return both the puzzle and word list
 
+def excelcol(num):
+    """ This function converts an index number to excel styled column letter"""
+    ecol = ""
+    while num > 0:
+        rem = (num - 1) % 26    
+        num = (num - 1) // 26
+        ecol = ecol + chr(65 + rem)
+
+    return ecol
+
 
 puzzle, words_raw  = read_excel()  #   unpaking tupples to puzzle and word
 
@@ -102,5 +112,5 @@ for w in words:     #   iterate for each queried word
             for p_word_dir, p_word in poss_words.items():
                 if w == p_word:
                     #   print the word, along with the staring letter postion in the puzzle and direction
-                    print(f'Word: {w}, Postion: [{r}][{c}], Direction: {p_word_dir}')
+                    print(f'Word: {w}, Postion: [{r+1}][{excelcol(c+1)}], Direction: {p_word_dir}')
             poss_words.clear()  #   clear for next iteration
