@@ -10,3 +10,4 @@ To install xlrd module, use:
 or visit PyPi site, by clicking [here](https://pypi.org/project/xlrd/)
 
 Kinjal Raykarmakar
+Developer
