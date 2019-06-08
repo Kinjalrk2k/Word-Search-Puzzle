@@ -16,6 +16,7 @@ directions = {
     'south-west': (1, -1)
 }
 
+
 def print_in_table(arr):
     """ This function prints a 2D array in a tabulated format   """
     numcols = len(arr[0])   #   number of cols in the passed 2D array
@@ -30,13 +31,14 @@ def print_in_table(arr):
         print(end  = '\n+')     #   division between each rows
         print('---+' * numcols)
 
+
 def read_excel():
     """ This function reads the puzzle.xlsx file (both the sheets)
         and returns the puzzle(2D array) and thee word querry list"""
     wb = xlrd.open_workbook('puzzle.xlsx')  #  opening the workbook to read from
     sheet = wb.sheet_by_index(0)    #   sheet object captures the first sheet
 
-    row_offset = 2  #   for headings
+    row_offset = 0  #   for headings
     arr2d = []    #   the 2D array to store the puzzle
     for row in range(sheet.nrows - row_offset):
         temp_row = []
@@ -53,6 +55,52 @@ def read_excel():
     return (arr2d, arr1d)   #   return both the puzzle and word list
 
 
-puzzle, words  = read_excel()  #   this is the 2D array containing the puzzle
+puzzle, words_raw  = read_excel()  #   unpaking tupples to puzzle and word
+
+print('Puzzle')
 print_in_table(puzzle)
-print(words)
+
+words1 = [x.upper() for x in words_raw]  #   converting all words to uppercase
+words2 = [x.replace(' ', '') for x in words1]   #   removing all spaces
+words = words2
+
+print(f'Queried Words: {words}')
+
+numrows = len(puzzle)       #   no. of rows in the puzzle
+numcols = len(puzzle[0])    #   no. of cols in the puzzle
+
+poss_words = {}     #   list of possible words in all directions for a particular letter (cell)
+temp_word = []      #   temp list of chars of the words
+
+for w in words:     #   iterate for each queried word
+
+    #   iterating over the 2D array
+    for r in range(numrows):
+        for c in range(numcols):
+
+            # dname is the key(direction name) and dupdate is the value(update values)
+            for dname, dupdate in directions.items():
+                #   wought to be the new indicies
+                newr = r
+                newc = c
+                i, j = dupdate  #   unpack tupple for seperate row and col updation
+
+                 #   constrain for gatthering letters till the length of the queried word
+                for l in range(len(w)):
+                    temp_word.append(puzzle[newr][newc])    #   append the letters one-by-one
+                    # update indices
+                    newr += i   
+                    newc += j
+                    if newr < 0 or newr >= numrows or newc < 0 or newc >=numcols:   #   added wrapping constraints
+                        break
+
+                string = ''.join(temp_word)     #   converting the char list to string
+                poss_words.update({dname : string}) #   adding new possible word along with direction key
+                temp_word.clear()   #   clear for next iteration
+
+            #   check if the quried word is present in the possible words dict
+            for p_word_dir, p_word in poss_words.items():
+                if w == p_word:
+                    #   print the word, along with the staring letter postion in the puzzle and direction
+                    print(f'Word: {w}, Postion: [{r}][{c}], Direction: {p_word_dir}')
+            poss_words.clear()  #   clear for next iteration
