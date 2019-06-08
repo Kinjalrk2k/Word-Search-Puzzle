@@ -112,5 +112,5 @@ for w in words:     #   iterate for each queried word
             for p_word_dir, p_word in poss_words.items():
                 if w == p_word:
                     #   print the word, along with the staring letter postion in the puzzle and direction
-                    print(f'Word: {w}, Postion: [{r+1}][{excelcol(c+1)}], Direction: {p_word_dir}')
+                    print(f'Word: {w},\t\t Postion: {excelcol(c+1)}{r+1},\t Direction: {p_word_dir}')
             poss_words.clear()  #   clear for next iteration
