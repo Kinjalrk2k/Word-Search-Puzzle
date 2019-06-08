@@ -40,4 +40,6 @@ Also suitable prompts may not be available for the user at the moment.
 
 More features and fixes are yet to come. Meanwhile suggestions, ideas, bug reports are welcomed.
 
+I am a python n00bie! I am still learning python! I have tried my best to give in as much effort required (of course directly proportionate to my knowledge), for this project. Though, this needs more work to be done, especially optimizing the algorithm.
+
 <br>***Kinjal Raykarmakar***
