@@ -83,6 +83,7 @@ poss_words = {}     #   list of possible words in all directions for a particula
 temp_word = []      #   temp list of chars of the words
 
 for w in words:     #   iterate for each queried word
+    found = False
 
     #   iterating over the 2D array
     for r in range(numrows):
@@ -111,6 +112,18 @@ for w in words:     #   iterate for each queried word
             #   check if the quried word is present in the possible words dict
             for p_word_dir, p_word in poss_words.items():
                 if w == p_word:
+                    found  = True
                     #   print the word, along with the staring letter postion in the puzzle and direction
                     print(f'Word: {w},\t\t Postion: {excelcol(c+1)}{r+1},\t Direction: {p_word_dir}')
+                    break
+
             poss_words.clear()  #   clear for next iteration
+            
+            if found is True:   #   already found, no need to iterate more
+                break
+
+        if found is True:   #   already found, no need to iterate more
+            break
+    
+    if found is False:  #   when the word is not found
+        print(f'Word: {w},\t\t NOT FOUND')
