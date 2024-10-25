@@ -33,9 +33,9 @@ def print_in_table(arr):
 
 
 def read_excel():
-    """ This function reads the puzzle.xlsx file (both the sheets)
+    """ This function reads the puzzle.xls file (both the sheets)
         and returns the puzzle(2D array) and thee word querry list"""
-    wb = xlrd.open_workbook('puzzle.xlsx')  #  opening the workbook to read from
+    wb = xlrd.open_workbook('puzzle.xls')  #  opening the workbook to read from
     sheet = wb.sheet_by_index(0)    #   sheet object captures the first sheet
 
     row_offset = 0  #   for headings
